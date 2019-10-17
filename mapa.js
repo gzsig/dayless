@@ -14,6 +14,7 @@ var facing = 'left';
 var jumpTimer = 0;
 var cursors;
 var jumpButton;
+var lamp;
 var bg;
 
 function TelaInicial(game) {
@@ -49,6 +50,7 @@ function TelaInicial(game) {
     game.load.image('starSmall', 'img/star.png');
     game.load.image('starBig', 'img/star2.png');
     game.load.image('background', 'img/background2.png');
+    game.load.image('posteluz', 'img/posteluz.png');
   };
 
   this.create = function() {
@@ -88,6 +90,10 @@ function TelaInicial(game) {
 
     game.camera.follow(player);
 
+    lamp = game.add.image(10, 10, 'posteluz');
+
+
+
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
   };
@@ -100,7 +106,7 @@ function TelaInicial(game) {
 
     if (cursors.left.isDown)
     {
-        player.body.velocity.x = -150;
+        player.body.velocity.x = -250;
 
         if (facing != 'left')
         {
@@ -110,7 +116,7 @@ function TelaInicial(game) {
     }
     else if (cursors.right.isDown)
     {
-        player.body.velocity.x = 150;
+        player.body.velocity.x = 250;
 
         if (facing != 'right')
         {
@@ -139,7 +145,7 @@ function TelaInicial(game) {
     
     if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer)
     {
-        player.body.velocity.y = -300;
+        player.body.velocity.y = -700;
         jumpTimer = game.time.now + 750;
     }
 
