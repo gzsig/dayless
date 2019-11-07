@@ -10,6 +10,8 @@ var map;
 var tileset;
 var layer;
 var player;
+var doubleJumpAllowed;
+var doubleJumpButtonAllowed;
 var facing = 'left';
 var anim = 'idle';
 var jumpTimer = 0;
@@ -67,7 +69,7 @@ function TelaInicial(game) {
 
     map.addTilesetImage('tiles-1');
 
-    map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
+    map.setCollisionByExclusion([  ]);
 
     layer = map.createLayer('Tile Layer 1');
 
@@ -78,10 +80,10 @@ function TelaInicial(game) {
 
     game.physics.arcade.gravity.y = 1000;
 
-    player = game.add.sprite(32, 32, 'char');
+    player = game.add.sprite(96, 96, 'char');
     game.physics.enable(player, Phaser.Physics.ARCADE);
 
-    player.body.bounce.y = 0.2;
+    player.body.bounce.y = 0.5;
     player.body.collideWorldBounds = true;
     player.body.setSize(20, 64, 22, 0);
 
@@ -94,6 +96,8 @@ function TelaInicial(game) {
     player.animations.play('idle-left');
     facing = 'left';
     anim = 'idle-left';
+    doubleJumpAllowed = false;
+    doubleJumpButtonAllowed = false;
 
     game.camera.follow(player);
 
@@ -160,7 +164,21 @@ function TelaInicial(game) {
       player.animations.play(anim);
     }
 
-    if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer)
+    if (onFloor) {
+      doubleJumpAllowed = true;
+      doubleJumpButtonAllowed = false;
+    } else if (doubleJumpAllowed) {
+      if (!jumpButton.isDown) {
+        doubleJumpButtonAllowed = true;
+      } else if (doubleJumpButtonAllowed) {
+        doubleJumpAllowed = false;
+        doubleJumpButtonAllowed = false;
+        player.body.velocity.y = -700;
+        jumpTimer = game.time.now + 750;
+      }
+    }
+
+    if (jumpButton.isDown && onFloor && game.time.now > jumpTimer)
     {
         player.body.velocity.y = -700;
         jumpTimer = game.time.now + 750;
