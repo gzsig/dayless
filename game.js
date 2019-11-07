@@ -69,7 +69,7 @@ function TelaInicial(game) {
 
     map.addTilesetImage('tiles-1');
 
-    map.setCollisionByExclusion([  ]);
+    map.setCollisionByExclusion([ 9 ]);
 
     layer = map.createLayer('Tile Layer 1');
 
