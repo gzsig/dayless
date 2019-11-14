@@ -1,11 +1,6 @@
 //<![CDATA[
 "use strict";
 
-// Essa não é a forma mais "prosissional" de fazer, mas é a mais simples :)
-
-// Vamos chamar a variável de game, para ficar igual ao sandbox!
-var game = new Phaser.Game(1280, 720, Phaser.AUTO, "divJogo");
-
 var map;
 var tileset;
 var layer;
@@ -186,12 +181,5 @@ function TelaInicial(game) {
 
   };
 }
-
-// Os estados do jogo podem ser entendidos como "telas" ou "cenários"
-// Se nosso jogo tivesse mais de uma "tela", bastaria adicionar as telas aqui,
-// dando nomes para cada uma (para alternar entre uma tela e outra, bastaria
-// executar jogo.state.start("Nome da tela") a qualquer momento)
-game.state.add("TelaInicial", TelaInicial);
-game.state.start("TelaInicial");
 
 //]]>

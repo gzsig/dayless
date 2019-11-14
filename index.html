@@ -14,7 +14,22 @@
 <body>
 	<div id="divJogo"></div>
 	<script type="text/javascript" src="phaser.min.js"></script>
+	<script type="text/javascript" src="menu.js"></script>
 	<script type="text/javascript" src="game.js"></script>
+	<script type="text/javascript">
+		// Essa não é a forma mais "prosissional" de fazer, mas é a mais simples :)
+
+		// Vamos chamar a variável de game, para ficar igual ao sandbox!
+		var game = new Phaser.Game(1280, 720, Phaser.AUTO, "divJogo");
+
+		// Os estados do jogo podem ser entendidos como "telas" ou "cenários"
+		// Se nosso jogo tivesse mais de uma "tela", bastaria adicionar as telas aqui,
+		// dando nomes para cada uma (para alternar entre uma tela e outra, bastaria
+		// executar jogo.state.start("Nome da tela") a qualquer momento)
+		game.state.add("TelaMenu", TelaMenu);
+		game.state.add("TelaInicial", TelaInicial);
+		game.state.start("TelaMenu");
+	</script>
 </body>
 
 </html>
