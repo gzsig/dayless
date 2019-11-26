@@ -28,7 +28,7 @@ function TelaMenu(game) {
 
   this.preload = function() {
     game.load.image('menu', 'img/menu.png');
-    game.load.image('start', 'img/luzhori.png');
+    game.load.image('start', 'img/blank.png');
   };
 
   var button;
