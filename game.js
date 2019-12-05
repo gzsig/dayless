@@ -14,6 +14,7 @@ var cursors;
 var jumpButton;
 var lamp;
 var bg;
+var playerFading;
 
 function TelaInicial(game) {
   // A função init() não aparecia no sandbox porque eles fazem ela por nós lá! :)
@@ -81,7 +82,10 @@ function TelaInicial(game) {
     player.body.bounce.y = 0.5;
     player.body.collideWorldBounds = true;
     player.body.setSize(20, 64, 22, 0);
+    player.body.maxVelocity.x = 800;
+    player.body.maxVelocity.y = 800;
 
+    playerFading = false;
     player.animations.add('left', [0, 1, 2, 3, 4], 10, true);
     player.animations.add('idle-left', [0], 10, true);
     player.animations.add('jump-left', [6], 10, true);
@@ -107,6 +111,26 @@ function TelaInicial(game) {
   this.update = function() {
 
     game.physics.arcade.collide(player, layer);
+
+    if (playerFading) {
+      player.body.velocity.x = 0;
+      player.body.velocity.y = 0;
+      if (player.scale.x <= 0.02) {
+        location.href = 'fim.html';
+        playerFading = false;
+      } else {
+        player.scale.set(player.scale.x - 0.01, player.scale.y - 0.01)
+      }
+      return;
+    }
+
+    var x = player.body.x, y = player.body.y;
+    if (x >= (90*48) && x < (92*48) && y >= (26*48) && y < (28*48)) {
+      player.body.velocity.x = 0;
+      player.body.velocity.y = 0;
+      playerFading = true;
+      return;
+    }
 
     player.body.velocity.x = 0;
     var onFloor = player.body.onFloor();
